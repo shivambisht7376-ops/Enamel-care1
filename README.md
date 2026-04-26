@@ -1,20 +1,30 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# LifeTime Smiles Clinic
 
-# Run and deploy your AI Studio app
+A modern dental clinic management system built with React, Vite, and Firebase.
 
-This contains everything you need to run your app locally.
+## Features
+- **Online Appointment Booking**: Real-time scheduling with automatic email confirmations.
+- **Patient Dashboard**: View and manage upcoming appointments.
+- **Admin Portal**: Full control over appointments and patient accounts.
+- **Review System**: Real-time patient feedback system.
+- **Interactive Map**: Location services with direction integration.
 
-View your app in AI Studio: https://ai.studio/apps/abbed304-09b2-4a80-a82d-d290200d5b38
+## Setup
 
-## Run Locally
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-**Prerequisites:**  Node.js
+2. **Environment Variables:**
+   Create a `.env` file based on `.env.example` and add your Firebase and Resend API keys.
 
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```

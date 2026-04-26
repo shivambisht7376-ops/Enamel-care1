@@ -232,7 +232,7 @@ export default function App() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">✉️</span>
-                <span>hello@enamelcare.com</span>
+                <span>hello@lifetimesmiles.com</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">🕒</span>

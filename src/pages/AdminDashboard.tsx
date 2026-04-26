@@ -66,7 +66,6 @@ export default function AdminDashboard() {
       setAppointments(appsData);
       setError('');
     } catch (err: any) {
-      console.error("Error fetching all appointments:", err);
       setError("Failed to load appointments.");
     } finally {
       setLoading(false);
@@ -84,7 +83,6 @@ export default function AdminDashboard() {
       });
       setUsers(usersData);
     } catch (err) {
-      console.error("Error fetching users:", err);
     }
   };
 
@@ -102,7 +100,6 @@ export default function AdminDashboard() {
       await updateDoc(doc(db, 'users', uid), { blocked: !currentBlocked });
       setUsers(users.map(u => u.uid === uid ? { ...u, blocked: !currentBlocked } : u));
     } catch (err) {
-      console.error("Error blocking user:", err);
       alert("Failed to update user status.");
     }
   };
@@ -114,7 +111,6 @@ export default function AdminDashboard() {
         app.id === id ? { ...app, status: newStatus } : app
       ));
     } catch (err) {
-      console.error("Error updating status:", err);
       alert("Failed to update status. Check permissions.");
     }
   };

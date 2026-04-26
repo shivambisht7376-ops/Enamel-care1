@@ -78,13 +78,13 @@ export default function AppointmentModal({ isOpen, onClose, onOpenAuth }: Appoin
           })
         });
       } catch (emailErr) {
-        console.error('Failed to send confirmation email:', emailErr);
+        
         // We don't block the user if email fails
       }
 
       setStep(3);
     } catch (err: any) {
-      console.error('Error booking appointment:', err);
+      
       if (err?.code?.includes('permission-denied') || err?.message?.includes('Missing or insufficient permissions')) {
         setError('Firestore Rules are blocking database writes. Please update your Rules in the Firebase Console: allow read, write: if request.auth != null;');
       } else {

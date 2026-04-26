@@ -45,7 +45,7 @@ export default function Appointments() {
         
         setAppointments(appsData);
       } catch (err: any) {
-        console.error("Error fetching appointments:", err);
+        
         setError("Failed to load appointments. Please ensure you are connected.");
       } finally {
         setLoading(false);
@@ -69,7 +69,7 @@ export default function Appointments() {
         app.id === id ? { ...app, status: 'cancelled' } : app
       ));
     } catch (err: any) {
-      console.error("Error cancelling appointment:", err);
+      
       if (err?.code?.includes('permission-denied') || err?.message?.includes('Missing or insufficient permissions')) {
           alert('Firestore rules are preventing this action. Ensure allow update: if request.auth != null.');
       } else {

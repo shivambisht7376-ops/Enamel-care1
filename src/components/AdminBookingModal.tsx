@@ -50,7 +50,7 @@ export default function AdminBookingModal({ isOpen, onClose, onSuccess }: AdminB
       setEmail('');
       setDate('');
     } catch (err: any) {
-      console.error('Error booking appointment:', err);
+      
       if (err?.code?.includes('permission-denied') || err?.message?.includes('Missing or insufficient permissions')) {
         setError('Firestore Rules are blocking database writes. Update your Rules in the Firebase Console: allow read, write: if request.auth != null;');
       } else {

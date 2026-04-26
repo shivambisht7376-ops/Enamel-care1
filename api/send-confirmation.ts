@@ -38,13 +38,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (error) {
-      console.error('Resend error:', error);
+      
       return res.status(500).json({ error });
     }
 
     return res.status(200).json({ data });
   } catch (err) {
-    console.error('Server error:', err);
+    
     return res.status(500).json({ message: 'Internal server error' });
   }
 }

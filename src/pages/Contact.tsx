@@ -56,6 +56,14 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-gray-900">Our Location</h3>
                     <p className="text-gray-600 mt-1">Flat No. 289, Lifetime Smiles Dental Clinic, near Pax Hotel And Residency,<br/>Pocket 3C, Pocket 4, Sector 16B Dwarka, Dwarka, New Delhi, Delhi, 110078</p>
+                    <a 
+                      href="https://www.google.com/maps/dir/?api=1&destination=28.585801,77.036814" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 text-primary font-bold text-sm hover:underline"
+                    >
+                      Open in Google Maps &rarr;
+                    </a>
                   </div>
                 </div>
                 
@@ -96,7 +104,7 @@ export default function Contact() {
         </div>
 
         {/* Map Section */}
-        <div className="mt-20 w-full h-[500px] rounded-[3rem] overflow-hidden shadow-xl border-4 border-white relative">
+        <div className="mt-20 w-full h-[550px] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white relative z-0">
           <Map />
         </div>
       </div>

@@ -52,7 +52,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           });
           onClose();
         } catch (dbErr: any) {
-          console.error("Firestore error:", dbErr);
+          
           if (dbErr?.code?.includes('permission-denied') || dbErr?.message?.includes('Missing or insufficient permissions')) {
             throw new Error("Account created, but Firestore Rules are blocking database writes. Please update your Rules in the Firebase Console: allow read, write: if request.auth != null;");
           }
@@ -61,7 +61,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       }
       onClose();
     } catch (err: any) {
-      console.error("Auth error:", err);
+      
       if (err.code === 'auth/invalid-credential') {
         setError('Invalid email or password.');
       } else if (err.code === 'auth/email-already-in-use') {

@@ -102,7 +102,7 @@ export default function ReviewSection() {
         alert('Thank you for your review!');
       }
     } catch (error) {
-      console.error('Error saving review: ', error);
+      
       alert('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -114,7 +114,7 @@ export default function ReviewSection() {
     try {
       await deleteDoc(doc(db, 'reviews', id));
     } catch (error) {
-      console.error('Error deleting review: ', error);
+      
     }
   };
 
@@ -122,7 +122,7 @@ export default function ReviewSection() {
     try {
       await updateDoc(doc(db, 'reviews', id), { featured: !currentStatus });
     } catch (error) {
-      console.error('Error toggling featured: ', error);
+      
     }
   };
 
