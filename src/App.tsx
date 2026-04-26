@@ -36,7 +36,7 @@ export default function App() {
       <div className="bg-primary-light text-primary-dark py-2 px-6 text-sm font-medium flex justify-between items-center hidden md:flex gap-4">
         <span className="truncate flex-1">📍 Flat No. 289, Lifetime Smiles Dental Clinic, near Pax Hotel And Residency, Pocket 3C, Pocket 4, Sector 16B Dwarka, Dwarka, New Delhi, Delhi, 110078</span>
         <span className="shrink-0 flex gap-4">
-          <span>📞 Emergency: (555) 123-4567</span>
+          <span>📞 Emergency: 8851865995, 8810286009</span>
         </span>
       </div>
 
@@ -47,7 +47,7 @@ export default function App() {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
               <HeartPulse className="h-8 w-8 text-primary" />
-              <span className="font-bold text-2xl tracking-tight text-gray-900">Enamel Care</span>
+              <span className="font-bold text-2xl tracking-tight text-gray-900">LifeTime Smiles Clinic</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -194,7 +194,7 @@ export default function App() {
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-white">
               <HeartPulse className="h-6 w-6 text-primary" />
-              <span className="font-bold text-xl tracking-tight">Enamel Care</span>
+              <span className="font-bold text-xl tracking-tight">LifeTime Smiles Clinic</span>
             </div>
             <p className="text-sm text-gray-400">
               Providing brighter, healthier smiles for the whole family with modern, compassionate dental care.
@@ -226,7 +226,7 @@ export default function App() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">📞</span>
-                <span>(555) 123-4567</span>
+                <span>8851865995, 8810286009</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">✉️</span>
@@ -240,7 +240,7 @@ export default function App() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 text-sm text-center text-gray-500">
-          © {new Date().getFullYear()} Enamel Care. All rights reserved.
+          © {new Date().getFullYear()} LifeTime Smiles Clinic. All rights reserved.
         </div>
       </footer>
 

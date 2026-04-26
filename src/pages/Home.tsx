@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArrowRight, Star, Shield, Clock, CheckCircle2 } from 'lucide-react';
-import { DEPARTMENTS, TESTIMONIALS } from '../data';
+import { DEPARTMENTS } from '../data';
 import { Link } from 'react-router-dom';
+import ReviewSection from '../components/ReviewSection';
 
 export default function Home({ onBookClick }: { onBookClick: () => void }) {
   return (
@@ -11,7 +12,7 @@ export default function Home({ onBookClick }: { onBookClick: () => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 relative z-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-primary text-sm font-semibold shadow-sm text-primary-dark">
-              <Star className="h-4 w-4 fill-primary" /> Rated 4.9/5 by 2000+ satisfied patients
+              <Star className="h-4 w-4 fill-primary" /> Trusted by 5000+ happy patients
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-[1.1] tracking-tight">
               A gentle touch for a <span className="text-primary">brighter smile.</span>
@@ -48,8 +49,8 @@ export default function Home({ onBookClick }: { onBookClick: () => void }) {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-[3rem] transform translate-y-8 translate-x-8"></div>
             <img 
-              src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1400&auto=format&fit=crop" 
-              alt="Patient smiling in dental chair" 
+              src="/assets/hero.png" 
+              alt="LifeTime Smiles Clinic interior" 
               referrerPolicy="no-referrer"
               className="relative z-10 w-full h-[500px] object-cover rounded-[3rem] shadow-2xl"
             />
@@ -116,24 +117,16 @@ export default function Home({ onBookClick }: { onBookClick: () => void }) {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials & Reviews */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
            <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3">Patient Stories</h2>
-           <h3 className="text-3xl md:text-4xl font-bold text-gray-900">What Our Patients Say</h3>
+           <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Patients Say</h3>
+           <p className="text-gray-600 max-w-2xl mx-auto">We take pride in our patient satisfaction. Read about the experiences of those who have trusted us with their smiles.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((testimonial) => (
-              <div key={testimonial.id} className="bg-primary-light/20 p-8 rounded-3xl relative">
-                <div className="flex gap-1 text-[#F59E0B] mb-6">
-                  {[1,2,3,4,5].map(star => <Star key={star} className="h-5 w-5 fill-current" />)}
-                </div>
-                <p className="text-gray-700 italic mb-6">"{testimonial.text}"</p>
-                <p className="font-bold text-gray-900">— {testimonial.name}</p>
-              </div>
-            ))}
-          </div>
+          
+          <ReviewSection />
         </div>
       </section>
       

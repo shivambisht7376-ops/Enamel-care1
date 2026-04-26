@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Appointments: Only the user who created it or the admin can read/write
+    match /appointments/{appointmentId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if request.auth != null && (request.auth.uid == resource.data.userId || request.auth.token.email == 'shivamzi953@gmail.com');
+    }
+    
+    // Reviews: Anyone can read, but only authenticated users can create. 
+    // Admin can delete/update.
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && request.auth.token.email == 'shivamzi953@gmail.com';
+    }
+  }
+}

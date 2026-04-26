@@ -7,12 +7,12 @@ export const DEPARTMENTS = [
 ];
 
 export const DOCTORS = [
-  { id: 'doc1', name: 'Dr. Sarah Jenkins', title: 'Lead General Dentist', department: 'general', image: 'https://picsum.photos/seed/sarah/400/400' },
+  { id: 'doc1', name: 'DR.Nitin', title: 'Lead General Dentist', department: 'general', image: 'https://picsum.photos/seed/sarah/400/400' },
   { id: 'doc2', name: 'Dr. Mark Davis', title: 'Orthodontist', department: 'orthodontics', image: 'https://picsum.photos/seed/mark/400/400' },
   { id: 'doc3', name: 'Dr. Emily Chen', title: 'Oral Surgeon', department: 'surgery', image: 'https://picsum.photos/seed/emily/400/400' },
   { id: 'doc4', name: 'Dr. Robert Williams', title: 'Cosmetic Dentist', department: 'cosmetic', image: 'https://picsum.photos/seed/robert/400/400' },
   { id: 'doc5', name: 'Dr. Lisa Miller', title: 'Pediatric Dentist', department: 'pediatric', image: 'https://picsum.photos/seed/lisa/400/400' },
-  { id: 'doc6', name: 'Dr. James Rodriguez', title: 'General Dentist', department: 'general', image: 'https://picsum.photos/seed/james/400/400' },
+  { id: 'doc6', name: 'DR. Talha', title: 'General Dentist', department: 'general', image: 'https://picsum.photos/seed/james/400/400' },
 ];
 
 export const BLOG_POSTS = [

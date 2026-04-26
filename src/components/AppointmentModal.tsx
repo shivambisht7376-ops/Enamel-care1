@@ -64,6 +64,24 @@ export default function AppointmentModal({ isOpen, onClose, onOpenAuth }: Appoin
         status: 'pending',
         createdAt: serverTimestamp()
       });
+
+      // Send confirmation email via serverless function
+      try {
+        await fetch('/api/send-confirmation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            name: `${firstName} ${lastName}`,
+            date,
+            department: selectedDept
+          })
+        });
+      } catch (emailErr) {
+        console.error('Failed to send confirmation email:', emailErr);
+        // We don't block the user if email fails
+      }
+
       setStep(3);
     } catch (err: any) {
       console.error('Error booking appointment:', err);
@@ -216,18 +234,28 @@ export default function AppointmentModal({ isOpen, onClose, onOpenAuth }: Appoin
               </div>
               <h4 className="text-2xl font-bold text-gray-900 mb-2">Request Received!</h4>
               <p className="text-gray-500 mb-6 max-w-sm mx-auto">
-                Thank you for choosing Enamel Care. Our team will contact you shortly to confirm your appointment time.
+                Thank you for choosing LifeTime Smiles Clinic. Our team will contact you shortly to confirm your appointment time.
               </p>
-              <button 
-                onClick={() => {
-                  setStep(1);
-                  onClose();
-                  navigate('/appointments');
-                }}
-                className="bg-gray-900 text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
-              >
-                View My Appointments
-              </button>
+              <div className="flex flex-col gap-3">
+                <a 
+                  href={`https://www.google.com/calendar/render?action=TEMPLATE&text=Dental+Appointment+at+LifeTime+Smiles+Clinic&dates=${date.replace(/-/g, '')}T090000Z/${date.replace(/-/g, '')}T100000Z&details=Appointment+for+${firstName}+${lastName}+at+LifeTime+Smiles+Clinic.&location=Flat+No.+289,+Sector+16B+Dwarka,+New+Delhi`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" /> Add to Google Calendar
+                </a>
+                <button 
+                  onClick={() => {
+                    setStep(1);
+                    onClose();
+                    navigate('/appointments');
+                  }}
+                  className="bg-gray-100 text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors"
+                >
+                  View My Appointments
+                </button>
+              </div>
             </div>
           )}
         </div>

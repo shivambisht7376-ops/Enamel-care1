@@ -64,7 +64,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900">Phone Number</h3>
-                    <p className="text-gray-600 mt-1">General: (555) 123-4567<br/>Emergency: (555) 987-6543</p>
+                    <p className="text-gray-600 mt-1">General: 8851865995<br/>Emergency: 8810286009</p>
                   </div>
                 </div>
 
