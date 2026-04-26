@@ -8,6 +8,7 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Departments from './pages/Departments';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import Appointments from './pages/Appointments';
 import AdminDashboard from './pages/AdminDashboard';
 import AppointmentModal from './components/AppointmentModal';
@@ -182,6 +183,7 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/departments" element={<Departments />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/admin" element={<AdminDashboard />} />

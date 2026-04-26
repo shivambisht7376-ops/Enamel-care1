@@ -3,6 +3,7 @@ import { ArrowRight, Star, Shield, Clock, CheckCircle2 } from 'lucide-react';
 import { DEPARTMENTS } from '../data';
 import { Link } from 'react-router-dom';
 import ReviewSection from '../components/ReviewSection';
+import FAQ from '../components/FAQ';
 
 export default function Home({ onBookClick }: { onBookClick: () => void }) {
   return (
@@ -178,26 +179,7 @@ export default function Home({ onBookClick }: { onBookClick: () => void }) {
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Common Patient Inquiries</h3>
           </div>
           
-          <div className="space-y-4">
-            {[
-              { q: "Do you accept dental insurance?", a: "Yes, we accept most major dental insurance providers. Our team will handle all the paperwork and help you maximize your benefits." },
-              { q: "How often should I visit the dentist?", a: "For most patients, we recommend a professional cleaning and examination every six months to prevent major issues before they start." },
-              { q: "Is the clinic equipped for dental emergencies?", a: "Absolutely. We prioritize emergency cases and offer same-day appointments for toothaches, broken teeth, or lost fillings." },
-              { q: "What should I bring to my first appointment?", a: "Please bring a valid ID, your insurance card (if applicable), and any recent dental X-rays if you have them." }
-            ].map((item, idx) => (
-              <details key={idx} className="group bg-white rounded-2xl border border-gray-100 p-6 transition-all hover:border-primary/20 cursor-pointer">
-                <summary className="flex items-center justify-between font-bold text-gray-900 list-none">
-                  {item.q}
-                  <span className="text-primary group-open:rotate-180 transition-transform">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                  </span>
-                </summary>
-                <p className="mt-4 text-gray-600 leading-relaxed border-t border-gray-50 pt-4">
-                  {item.a}
-                </p>
-              </details>
-            ))}
-          </div>
+          <FAQ />
         </div>
       </section>
 

@@ -39,13 +39,13 @@ export default function Blog() {
                   </div>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 line-clamp-2">
-                  <Link to="#" className="hover:text-primary transition-colors">{post.title}</Link>
+                  <Link to={`/blog/${post.id}`} className="hover:text-primary transition-colors">{post.title}</Link>
                 </h2>
                 <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">
                   {post.excerpt}
                 </p>
                 <div className="mt-auto">
-                  <Link to="#" className="text-primary font-semibold hover:text-primary-dark transition-colors inline-block">
+                  <Link to={`/blog/${post.id}`} className="text-primary font-semibold hover:text-primary-dark transition-colors inline-block">
                     Read Full Article &rarr;
                   </Link>
                 </div>

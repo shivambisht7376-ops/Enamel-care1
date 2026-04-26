@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import Map from '../components/Map';
 
 export default function Contact() {
   return (
@@ -95,16 +96,8 @@ export default function Contact() {
         </div>
 
         {/* Map Section */}
-        <div className="mt-20 w-full h-[450px] rounded-[3rem] overflow-hidden shadow-xl border-4 border-white">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.464670003!2d77.036814!3d28.585801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1af85d88402b%3A0x6e9a66710b75a6f2!2sSector%2016B%20Dwarka%2C%20Dwarka%2C%20New%20Delhi%2C%20Delhi%20110078!5e0!3m2!1sen!2sin!4v1714155000000!5m2!1sen!2sin" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={true} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+        <div className="mt-20 w-full h-[500px] rounded-[3rem] overflow-hidden shadow-xl border-4 border-white relative">
+          <Map />
         </div>
       </div>
     </div>
