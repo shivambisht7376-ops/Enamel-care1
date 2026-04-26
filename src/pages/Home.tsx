@@ -117,6 +117,46 @@ export default function Home({ onBookClick }: { onBookClick: () => void }) {
         </div>
       </section>
 
+      {/* Smile Transformation Gallery */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3">Transformations</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Smile Gallery</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">See the real-life results of our cosmetic and restorative dental treatments.</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="group relative aspect-square rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+                <img 
+                  src={`https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=400&auto=format&fit=crop&sig=${item}`} 
+                  alt="Smile Transformation" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                  <span className="text-white font-medium text-sm">Patient Result {item}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Insurance Partners */}
+      <section className="py-20 bg-gray-50 border-y border-gray-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
+          <h4 className="text-center text-sm font-bold text-gray-400 uppercase tracking-widest mb-12">We Accept All Major Insurances</h4>
+          <div className="flex flex-wrap justify-center items-center gap-16 grayscale transition-all hover:grayscale-0">
+             <div className="text-2xl font-black text-gray-300">Cigna</div>
+             <div className="text-2xl font-black text-gray-300">MetLife</div>
+             <div className="text-2xl font-black text-gray-300">Aetna</div>
+             <div className="text-2xl font-black text-gray-300">UnitedHealthcare</div>
+             <div className="text-2xl font-black text-gray-300">Delta Dental</div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials & Reviews */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -130,6 +170,47 @@ export default function Home({ onBookClick }: { onBookClick: () => void }) {
         </div>
       </section>
       
+      {/* FAQ Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3">Questions?</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Common Patient Inquiries</h3>
+          </div>
+          
+          <div className="space-y-4">
+            {[
+              { q: "Do you accept dental insurance?", a: "Yes, we accept most major dental insurance providers. Our team will handle all the paperwork and help you maximize your benefits." },
+              { q: "How often should I visit the dentist?", a: "For most patients, we recommend a professional cleaning and examination every six months to prevent major issues before they start." },
+              { q: "Is the clinic equipped for dental emergencies?", a: "Absolutely. We prioritize emergency cases and offer same-day appointments for toothaches, broken teeth, or lost fillings." },
+              { q: "What should I bring to my first appointment?", a: "Please bring a valid ID, your insurance card (if applicable), and any recent dental X-rays if you have them." }
+            ].map((item, idx) => (
+              <details key={idx} className="group bg-white rounded-2xl border border-gray-100 p-6 transition-all hover:border-primary/20 cursor-pointer">
+                <summary className="flex items-center justify-between font-bold text-gray-900 list-none">
+                  {item.q}
+                  <span className="text-primary group-open:rotate-180 transition-transform">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                  </span>
+                </summary>
+                <p className="mt-4 text-gray-600 leading-relaxed border-t border-gray-50 pt-4">
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Badges */}
+      <div className="bg-white py-12 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center items-center gap-12 grayscale opacity-50">
+          <div className="flex items-center gap-2 font-bold text-xl text-gray-400 italic">ISO 9001 CERTIFIED</div>
+          <div className="flex items-center gap-2 font-bold text-xl text-gray-400 italic">ADA ACCREDITED</div>
+          <div className="flex items-center gap-2 font-bold text-xl text-gray-400 italic">HEALTHCARE EXCELLENCE</div>
+          <div className="flex items-center gap-2 font-bold text-xl text-gray-400 italic">2026 TOP CLINIC</div>
+        </div>
+      </div>
+
       {/* CTA Layer */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-primary"></div>
