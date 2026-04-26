@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
-import { collection, query, orderBy, getDocs, doc, updateDoc } from 'firebase/firestore';
-import { Calendar, Clock, AlertCircle, Search, ShieldCheck, Plus, CheckCircle2, XCircle, Filter } from 'lucide-react';
+import { collection, query, orderBy, getDocs, doc, updateDoc, where } from 'firebase/firestore';
+import { Calendar, Clock, AlertCircle, Search, ShieldCheck, Plus, CheckCircle2, XCircle, Filter, Users, UserX, UserCheck } from 'lucide-react';
+import { cn } from '../lib/utils';
 import { DEPARTMENTS } from '../data';
 import AdminBookingModal from '../components/AdminBookingModal';
 
@@ -18,9 +19,19 @@ interface Appointment {
   createdAt: any;
 }
 
+interface UserDoc {
+  uid: string;
+  name: string;
+  email: string;
+  blocked?: boolean;
+  createdAt: any;
+}
+
 export default function AdminDashboard() {
   const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState<'appointments' | 'users'>('appointments');
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [users, setUsers] = useState<UserDoc[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,8 +50,6 @@ export default function AdminDashboard() {
     
     setLoading(true);
     try {
-      // For the admin portal, we fetch all appointments.
-      // NOTE: Your Firestore Rules must allow read access for this to work.
       const q = query(collection(db, 'appointments'));
       const querySnapshot = await getDocs(q);
       const appsData: Appointment[] = [];
@@ -58,19 +67,45 @@ export default function AdminDashboard() {
       setError('');
     } catch (err: any) {
       console.error("Error fetching all appointments:", err);
-      if (err?.code?.includes('permission-denied') || err?.message?.includes('Missing or insufficient permissions')) {
-        setError("Firestore Rules blocking Admin read access. To view all appointments, ensure your Rules allow admin read access (e.g. allow read, write: if request.auth != null; for prototype purposes).");
-      } else {
-        setError("Failed to load appointments.");
-      }
+      setError("Failed to load appointments.");
     } finally {
       setLoading(false);
     }
   };
 
+  const fetchUsers = async () => {
+    if (!user) return;
+    try {
+      const q = query(collection(db, 'users'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const usersData: UserDoc[] = [];
+      querySnapshot.forEach((doc) => {
+        usersData.push({ ...doc.data() } as UserDoc);
+      });
+      setUsers(usersData);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
+
   useEffect(() => {
-    fetchAppointments();
-  }, [user]);
+    if (activeTab === 'appointments') {
+      fetchAppointments();
+    } else {
+      fetchUsers();
+    }
+  }, [user, activeTab]);
+
+  const handleBlockUser = async (uid: string, currentBlocked: boolean) => {
+    if (!window.confirm(`Are you sure you want to ${currentBlocked ? 'unblock' : 'block'} this user?`)) return;
+    try {
+      await updateDoc(doc(db, 'users', uid), { blocked: !currentBlocked });
+      setUsers(users.map(u => u.uid === uid ? { ...u, blocked: !currentBlocked } : u));
+    } catch (err) {
+      console.error("Error blocking user:", err);
+      alert("Failed to update user status.");
+    }
+  };
 
   const handleStatusChange = async (id: string, newStatus: string) => {
     try {
@@ -157,14 +192,35 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm">
           <div className="p-6 border-b border-gray-100 flex flex-col gap-4 bg-gray-50/50">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-bold text-gray-900">All Appointments</h2>
-              <div className="flex gap-2 items-center">
-                <button 
-                  onClick={() => setShowFilters(!showFilters)}
-                  className={`px-3 py-1.5 flex items-center gap-2 text-sm font-medium rounded-lg border transition-colors ${showFilters ? 'bg-primary-light/30 border-primary text-primary' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'}`}
+              <div className="flex bg-white p-1 rounded-xl border border-gray-200">
+                <button
+                  onClick={() => setActiveTab('appointments')}
+                  className={cn(
+                    "px-4 py-1.5 rounded-lg text-sm font-medium transition-all",
+                    activeTab === 'appointments' ? "bg-primary text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
+                  )}
                 >
-                  <Filter className="w-4 h-4" /> Filters
+                  Appointments
                 </button>
+                <button
+                  onClick={() => setActiveTab('users')}
+                  className={cn(
+                    "px-4 py-1.5 rounded-lg text-sm font-medium transition-all",
+                    activeTab === 'users' ? "bg-primary text-white shadow-sm" : "text-gray-500 hover:text-gray-700"
+                  )}
+                >
+                  Patients
+                </button>
+              </div>
+              <div className="flex gap-2 items-center">
+                {activeTab === 'appointments' && (
+                  <button 
+                    onClick={() => setShowFilters(!showFilters)}
+                    className={`px-3 py-1.5 flex items-center gap-2 text-sm font-medium rounded-lg border transition-colors ${showFilters ? 'bg-primary-light/30 border-primary text-primary' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'}`}
+                  >
+                    <Filter className="w-4 h-4" /> Filters
+                  </button>
+                )}
               </div>
             </div>
             
@@ -247,6 +303,49 @@ export default function AdminDashboard() {
           {loading ? (
             <div className="flex justify-center items-center py-20">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          ) : activeTab === 'users' ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-white border-b border-gray-100">
+                    <th className="p-4 font-semibold text-gray-900 text-sm">User</th>
+                    <th className="p-4 font-semibold text-gray-900 text-sm">Email</th>
+                    <th className="p-4 font-semibold text-gray-900 text-sm">Joined</th>
+                    <th className="p-4 font-semibold text-gray-900 text-sm">Status</th>
+                    <th className="p-4 font-semibold text-gray-900 text-sm">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((u) => (
+                    <tr key={u.uid} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                      <td className="p-4 font-medium text-gray-900">{u.name}</td>
+                      <td className="p-4 text-gray-600 text-sm">{u.email}</td>
+                      <td className="p-4 text-gray-500 text-sm">
+                        {u.createdAt?.toDate ? u.createdAt.toDate().toLocaleDateString() : 'N/A'}
+                      </td>
+                      <td className="p-4">
+                        <span className={`inline-flex px-2.5 py-1 rounded-md text-[10px] font-bold uppercase
+                          ${u.blocked ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}
+                        `}>
+                          {u.blocked ? 'Blocked' : 'Active'}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <button
+                          onClick={() => handleBlockUser(u.uid, !!u.blocked)}
+                          className={cn(
+                            "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all",
+                            u.blocked ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-red-50 text-red-600 hover:bg-red-100"
+                          )}
+                        >
+                          {u.blocked ? <><UserCheck className="w-3.5 h-3.5" /> Unblock</> : <><UserX className="w-3.5 h-3.5" /> Block Account</>}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           ) : filteredAppointments.length === 0 && !error ? (
             <div className="p-12 text-center text-gray-500">

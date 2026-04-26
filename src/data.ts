@@ -16,9 +16,9 @@ export const DOCTORS = [
 ];
 
 export const BLOG_POSTS = [
-  { id: 1, title: '5 Daily Habits for a Brighter Smile', date: 'April 15, 2026', author: 'Dr. Robert Williams', excerpt: 'Maintaining a white smile goes beyond just brushing. Here are five daily habits you can incorporate...' },
-  { id: 2, title: 'Understanding Dental Implants', date: 'April 02, 2026', author: 'Dr. Emily Chen', excerpt: 'Dental implants are a popular and effective long-term solution for people who suffer from missing teeth...' },
-  { id: 3, title: 'When Should Your Child First See a Dentist?', date: 'March 20, 2026', author: 'Dr. Lisa Miller', excerpt: 'The general rule of thumb is to take your child to the dentist when their first tooth appears...' },
+  { id: 1, title: '5 Daily Habits for a Brighter Smile', date: 'April 15, 2026', author: 'Dr. Robert Williams', excerpt: 'Maintaining a white smile goes beyond just brushing. Here are five daily habits you can incorporate...', image: '/assets/blog1.png' },
+  { id: 2, title: 'Understanding Dental Implants', date: 'April 02, 2026', author: 'Dr. Emily Chen', excerpt: 'Dental implants are a popular and effective long-term solution for people who suffer from missing teeth...', image: '/assets/blog2.png' },
+  { id: 3, title: 'When Should Your Child First See a Dentist?', date: 'March 20, 2026', author: 'Dr. Lisa Miller', excerpt: 'The general rule of thumb is to take your child to the dentist when their first tooth appears...', image: '/assets/blog3.png' },
 ];
 
 export const TESTIMONIALS = [

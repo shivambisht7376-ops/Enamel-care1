@@ -21,7 +21,7 @@ export default function Blog() {
             <article key={post.id} className="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col">
               <div className="aspect-video bg-gray-100 relative">
                 <img 
-                  src={`https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop&sig=${post.id}`} 
+                  src={post.image} 
                   alt={post.title} 
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover" 

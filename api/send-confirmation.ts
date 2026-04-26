@@ -1,7 +1,8 @@
-// Vercel Serverless Function
-// Note: This requires 'nodemailer' to be installed: npm install nodemailer
+import { Resend } from 'resend';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-// import nodemailer from 'nodemailer';
+
+// User should add RESEND_API_KEY to their Vercel environment variables
+const resend = new Resend(process.env.RESEND_API_KEY || 're_mock_key');
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -14,42 +15,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
-  console.log(`Sending confirmation email to ${email} for appointment on ${date}`);
-
-  /* 
-  // IMPLEMENTATION EXAMPLE WITH NODEMAILER:
-  
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-
   try {
-    await transporter.sendMail({
-      from: '"LifeTime Smiles Clinic" <no-reply@lifetimesmiles.com>',
-      to: email,
-      subject: 'Appointment Confirmation - LifeTime Smiles Clinic',
+    const { data, error } = await resend.emails.send({
+      from: 'LifeTime Smiles Clinic <appointments@resend.dev>', // Change to your verified domain later
+      to: [email],
+      subject: 'Appointment Confirmed - LifeTime Smiles Clinic',
       html: `
-        <h1>Appointment Confirmed!</h1>
-        <p>Hello ${name},</p>
-        <p>Your dental appointment at <strong>LifeTime Smiles Clinic</strong> has been successfully booked for <strong>${date}</strong>.</p>
-        <p>Department: ${department}</p>
-        <p>Our team will contact you shortly to confirm the exact time.</p>
-        <br/>
-        <p>Best regards,<br/>LifeTime Smiles Team</p>
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; rounded: 12px;">
+          <h2 style="color: #0ea5e9;">Appointment Confirmed!</h2>
+          <p>Hello <strong>${name}</strong>,</p>
+          <p>Your dental appointment at <strong>LifeTime Smiles Clinic</strong> has been successfully booked.</p>
+          <div style="background-color: #f0f9ff; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 5px 0;"><strong>Date:</strong> ${date}</p>
+            <p style="margin: 5px 0;"><strong>Department:</strong> ${department}</p>
+          </div>
+          <p>Our team will contact you shortly to confirm the exact time and specialist.</p>
+          <p>If you need to reschedule, please call us at 8851865995.</p>
+          <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+          <p style="font-size: 12px; color: #666;">© ${new Date().getFullYear()} LifeTime Smiles Clinic. All rights reserved.</p>
+        </div>
       `,
     });
-    return res.status(200).json({ message: 'Email sent successfully' });
-  } catch (error) {
-    console.error('Email error:', error);
-    return res.status(500).json({ message: 'Failed to send email' });
-  }
-  */
 
-  // Mock success for now
-  return res.status(200).json({ message: 'Email request received (Mock)' });
+    if (error) {
+      console.error('Resend error:', error);
+      return res.status(500).json({ error });
+    }
+
+    return res.status(200).json({ data });
+  } catch (err) {
+    console.error('Server error:', err);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
 }
